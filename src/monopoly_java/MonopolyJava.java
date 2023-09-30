@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package monopolyJava;
+package monopoly_java;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -67,15 +67,17 @@ public class MonopolyJava {
 
     }
     public static void playGame(List<Field> board, List<Player> players) {
-        while (true) {
+        int round = 10;
+        while (round >= 0) {
             for (Player player : players) {
-                int diceroll = 3;
+                int diceroll = 1;
                 int newPosition = (player.getPosition() + diceroll) % board.size();
                 player.setPosition(newPosition);
-                Field getField = board.get(newPosition);
+                Field currentField = board.get(newPosition);
                 System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + "at " + newPosition);  // Assume a getDescription method in Field class
-
+                play.action();
             }
+            round--;
             
         }
     }

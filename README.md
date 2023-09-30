@@ -95,9 +95,9 @@ Print out which player won the game, and how rich he is (balance, owned properti
 	lucky field 2000
 	service 1000
 	3 (Number of player)
-	Bob
-	Bill
-	John
+	Bob greed
+	Bill careful
+	John tactical
 
 ### diceroll.txt(Simulation of Diceroll for testing):
 	3

@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package monopolyJava;
+package monopoly_java;
 import java.util.ArrayList;
-import monopoly.java.NotEnoughMoney;
 /**
  *
  * @author work
@@ -15,16 +14,17 @@ public class Player {
     private ArrayList<Property> properties = new ArrayList<>();
     protected PlayerStrategy strategy;
     private int turn_count;
+    private int position;
     public Player(String name, PlayerStrategy strategy) {
         this.name = name;
         this.money = 10_000;
         this.turn_count = 0;
         this.strategy = strategy; 
+        this.position = 0;
     }
-    public Player() {
-        this.name = "Bank";
-        this.money = 0;
-    }
+    public void setPosition(int position) { this.position = position;}
+    
+    public int getPosition() { return position;}
     
     public String getName() { return name;}
     
