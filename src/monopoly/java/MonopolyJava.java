@@ -16,20 +16,27 @@ public class MonopolyJava {
      */
     public static void main(String[] args) {
 //        Bank bank = new Bank();
-//        Player player1 = new Player("Bob");
-        List<Property> fields = new ArrayList<>();
+        Player player1 = new Player("Bob");
+        List<Field> board = new ArrayList<>();
         for (int i=0; i < 3; i++) {
             Property field = new Property();
-            fields.add(field);
+            board.add(field);
         }
-        Iterator itr=fields.iterator();  
-        while(itr.hasNext()){  
-        System.out.println(itr.next());  
+        int step = 8;
+        int cnt = 0;
+        while (step != 0) {
+            cnt++;
+            for(Field block : board) {
+                if (step <= 0) {
+                    break;
+                }
+                System.out.println("Processing...");
+                player1.action(block);
+                step -= 1;
+            }
+            System.out.println(cnt + " one done.");
         }
-        System.out.println("First one done.");
-        while(itr.hasNext()){  
-        System.out.println(itr.next());  
-        }  
+        
         
     }
     

@@ -13,8 +13,18 @@ import java.util.Set;
  */
 public class Property extends Field {
     protected Player Owner;
+    
     public Property() {
         this.setValue(1_000);
         
+    }
+    public boolean isForSale() {
+        return Owner == null;
+    } 
+    public void setOwner(Player player) {
+        Owner = player;
+    }
+    public void removeOwner() {
+        Owner = null;
     }
 }

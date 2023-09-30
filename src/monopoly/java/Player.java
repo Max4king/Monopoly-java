@@ -12,9 +12,13 @@ public class Player {
     private int money;
     private String name;
     private ArrayList<Property> properties = new ArrayList<>();
-    public Player(String name) {
+    protected PlayerStrategy strategy;
+    private int turn_count;
+    public Player(String name, PlayerStrategy strategy) {
         this.name = name;
         this.money = 10_000;
+        this.turn_count = 0;
+        this.strategy = strategy; 
     }
     public Player() {
         this.name = "Bank";
@@ -23,25 +27,35 @@ public class Player {
     
     public String getName() { return name;}
     
-    public void pay(Player player, int amount) throws Exception {
+    public void pay(int amount) throws Exception {
         if (money < amount) {
-            throw new Exception("Error Fix this");
+            throw new Exception("Not Enough Money");
         }
         money -= amount;
-        player.receive(amount);
     }
-    public void payBank(int amount) throws Exception {
+    public void payBank(int amount) throws NotEnoughMoney {
         if (money < amount) {
-            throw new Exception("Error Fix this");
+            throw new NotEnoughMoney();
         }
         money -= amount;
     }
     public void buy(Property property) {
-        try{
+        try {
+
             this.payBank(property.getValue());
+            property.setOwner(this);
+            System.out.println("Property Bought!");
         }
-        catch(Exception e) {
-            System.out.println("Unable to buy");
+        catch(NotEnoughMoney e) {
+            System.out.println("Not Enough Money!");
+        }
+        catch(PropertyAlreadyOwned e){
+            System.out.println("Someone already own this property.");
+        }
+    }
+    public void action(Field block) {
+        if (block.getClass().getSimpleName().equals("Property")) {
+            this.buy(((Property) block));
         }
     }
     

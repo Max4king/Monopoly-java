@@ -4,22 +4,13 @@
  */
 package monopoly.java;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author work
  */
-public class Board {
-    List<Field> fields;
-
-    public Board() {
-        fields = new ArrayList<>();
+public class GreedyStrategy implements PlayerStrategy {
+    public void execute(Player player, Field field) {
+        if (field instanceof Property && ((Property) field).isForSale()) {
+            player.buy(((Property) field));
     }
-    
-    public void add(Field field) {
-        fields.add(field);
-    }
-
 }

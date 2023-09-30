@@ -4,22 +4,12 @@
  */
 package monopoly.java;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author work
  */
-public class Board {
-    List<Field> fields;
-
-    public Board() {
-        fields = new ArrayList<>();
+public class NotEnoughMoney extends Exception {
+    public NotEnoughMoney() {
+        super("Not Enough Money");
     }
-    
-    public void add(Field field) {
-        fields.add(field);
-    }
-
 }
