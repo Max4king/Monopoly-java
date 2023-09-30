@@ -1,0 +1,46 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam CircledCharacterFontSize 0
+skinparam CircledCharacterRadius 0
+title Monopoly Diagram
+
+class Player{
+    # name : String
+    # Money : int
+    # pay(player : Player, amount: int) : boolean
+    + receive(amount : int)
+    + checkAlive(): boolean
+}
+
+class Bank {
+    # pay(player : Player, amount: int) : boolean
+}
+
+class Field{
+    # value : int
+    + effectValue() : int
+}
+
+class Property {
+    - owned : boolean
+    - house : boolean
+    + effectValue() : int
+    + buy(player: Player)
+    + sell(player: Player)
+    + AddHouse()
+}
+
+class Service {
+}
+
+class LuckyField {
+    + effectValue() : int
+}
+
+Player "*" o-down- "0..1" Property : properties
+Field <|-down- Property
+Field <|-down- Service
+Field <|-down- LuckyField
+
+@enduml

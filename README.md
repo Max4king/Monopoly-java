@@ -39,6 +39,18 @@ Things to have:
 	* service field == -TBA
 	* lucky field   == +TBA
 
+## Tools
+
+### Apache Net BeansIDE 19
+Mandatory used.
+
+### PlantUML/ ~~yUML~~
+For a more programmatic way of making a diagram.
+NOTE: use "skinparam classAttributeIconSize 0" in plantuml to change the symbol of visibility from geometric shape(triangle,square and circle) to the classic(#,-,+).
+
+### Git
+For version control and easy to traceback.
+
 ## Original Explanation(With format):
 Simulate a simplified Capitaly(aka Monopoly) game. There are some players with different strategies, and a
 cyclical board with several fields. Players can move around the board, by moving forward with

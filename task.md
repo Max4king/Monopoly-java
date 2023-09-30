@@ -3,7 +3,7 @@
 - [ ]  1. Make a UML diagram
 - [ ]  2. Player class
 - [ ]  3. Field class
-- [ ]  4. Add method (Payment)
+- [ ]  4. Add method (i.e. Payment, Aquire field, etc)
 - [ ]  5. Add Housing
 - [ ]  6. Make a collection (Main class)
 - [ ]  7. Add losing Condition

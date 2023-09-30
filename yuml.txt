@@ -1,0 +1,20 @@
+
+yUML code:
+// Monopoly Diagram
+// -------------------
+
+// Chain elements like this
+[Customer]<>-orders*>[Order]++-0..*>[LineItem]
+
+// Add more detail
+[Customer | #name: String; #money: int; #strategy: StrategyPlayer | +pay( (user:Player),(amount: int)  )]
+
+
+// Field
+[Field | #value: int |]
+
+[Property | #value: int; #house:boolean |]^Field]
+
+[Service | |]^[Field]
+
+[LuckyField | |]^[Field]

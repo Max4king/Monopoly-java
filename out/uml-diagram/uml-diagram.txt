@@ -1,0 +1,15 @@
+[From string (line 11) ]   
+                           
+@startuml                  
+                           
+skin rose                  
+                           
+title Simple Object Diagram
+                           
+object Player              
+object Field               
+object Property            
+object Service             
+object Luck field          
+^^^^^                      
+ Syntax Error?             
