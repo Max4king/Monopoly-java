@@ -4,7 +4,8 @@
  */
 package monopoly.java;
 import java.util.*;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 /**
  *
  * @author work
@@ -15,29 +16,67 @@ public class MonopolyJava {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        Bank bank = new Bank();
-        Player player1 = new Player("Bob");
-        List<Field> board = new ArrayList<>();
-        for (int i=0; i < 3; i++) {
-            Property field = new Property();
-            board.add(field);
+        try {
+            Scanner scanner = new Scanner(new File("input.txt"));
+            List<Field> board = createBoard(scanner);
+            List<Player> players = createPlayers(scanner);
+            playGame(board, players);
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
         }
-        int step = 8;
-        int cnt = 0;
-        while (step != 0) {
-            cnt++;
-            for(Field block : board) {
-                if (step <= 0) {
-                    break;
-                }
-                System.out.println("Processing...");
-                player1.action(block);
-                step -= 1;
-            }
-            System.out.println(cnt + " one done.");
-        }
-        
-        
     }
-    
+    public static List<Field> createBoard(Scanner scanner) {
+        int numFields = scanner.nextInt();
+        scanner.nextLine();  // Consume the newline
+        List<Field> board = new ArrayList<>();
+        for (int i = 0; i < numFields; i++) {
+            String[] fieldInfo = scanner.nextLine().split(" ");
+            if (fieldInfo[0].equals("property")) {
+                board.add(new Property()); }
+//            } else if (fieldInfo[0].equals("lucky")) {
+//                int amount = Integer.parseInt(fieldInfo[2]);
+//                board.add(new LuckyField(amount));
+//            } else if (fieldInfo[0].equals("service")) {
+//                int cost = Integer.parseInt(fieldInfo[1]);
+//                board.add(new ServiceField(cost));
+//            }
+        }
+        return board;
+    }   
+        
+    public static List<Player> createPlayers(Scanner scanner) {
+        int numPlayers = scanner.nextInt();
+        scanner.nextLine();  // Consume the newline
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < numPlayers; i++) {
+            String[] playerInfo = scanner.nextLine().split(" ");
+            String name = playerInfo[0];
+            String strategyType = playerInfo[1];
+            PlayerStrategy strategy = null;
+            if (strategyType.equals("greedy")) {
+                strategy = new GreedyStrategy(); }
+//            } else if (strategyType.equals("tactical")) {
+//                strategy = new TacticalStrategy();
+//            } else if (strategyType.equals("careful")) {
+//                strategy = new CarefulStrategy();
+//            }
+            players.add(new Player(name, strategy));
+        }
+        return players;
+
+    }
+    public static void playGame(List<Field> board, List<Player> players) {
+        while (true) {
+            for (Player player in players) {
+                int diceroll = 3;
+                int newPosition = (player.getPosition() + diceroll) % board.size();
+                player.setPosition(newPosition);
+                Field getField = board.get(newPosition);
+                System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + "at " + newPosition);  // Assume a getDescription method in Field class
+
+            }
+            
+        }
+    }
 }

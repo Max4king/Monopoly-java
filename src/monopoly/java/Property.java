@@ -24,6 +24,7 @@ public class Property extends Field {
     public void setOwner(Player player) {
         Owner = player;
     }
+    public Player getOwner() {return Owner;}
     public void removeOwner() {
         Owner = null;
     }

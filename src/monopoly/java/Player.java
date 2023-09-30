@@ -27,37 +27,43 @@ public class Player {
     
     public String getName() { return name;}
     
-    public void pay(int amount) throws Exception {
-        if (money < amount) {
-            throw new Exception("Not Enough Money");
-        }
-        money -= amount;
-    }
-    public void payBank(int amount) throws NotEnoughMoney {
+    public void pay(int amount) throws NotEnoughMoney {
         if (money < amount) {
             throw new NotEnoughMoney();
         }
         money -= amount;
     }
+    public void forcedPay(int amount) throws NotEnoughMoney {
+        if (money < amount) {
+            
+        }
+        money -= amount;
+    }
+    
+//    public void sellProperty(int debt) {
+//        
+//        for()
+//    }
     public void buy(Property property) {
+    if (!property.isForSale()) {
         try {
+            this.forcedPay(property.getValue()); // Pay the owner
+            property.getOwner().receive(property.getValue()); // Owner receives money
+        } catch (Exception e) {
+            System.out.println("Not enough money to pay the owner.");
+        }
+        return;
+    }
+    try {
+        this.pay(property.getValue());  // Pay the bank
+        property.setOwner(this);  // Update property owner
+        this.properties.add(property);  // Add property to player's list
+        System.out.println("Property Bought!");
+    } catch(NotEnoughMoney e) {
+        System.out.println("Not Enough Money!");
+    }
+}
 
-            this.payBank(property.getValue());
-            property.setOwner(this);
-            System.out.println("Property Bought!");
-        }
-        catch(NotEnoughMoney e) {
-            System.out.println("Not Enough Money!");
-        }
-        catch(PropertyAlreadyOwned e){
-            System.out.println("Someone already own this property.");
-        }
-    }
-    public void action(Field block) {
-        if (block.getClass().getSimpleName().equals("Property")) {
-            this.buy(((Property) block));
-        }
-    }
     
     public void receive(int amount) {
         money += amount;
