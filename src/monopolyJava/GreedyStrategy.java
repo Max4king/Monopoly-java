@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package monopoly.java;
+package monopolyJava;
 
 /**
  *
@@ -11,5 +11,7 @@ package monopoly.java;
 public class GreedyStrategy implements PlayerStrategy {
     public void execute(Player player, Field field) {
         if (field instanceof Property && ((Property) field).isForSale()) {
+            player.buy((Property) field);
     }
+}
 }

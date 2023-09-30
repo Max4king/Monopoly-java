@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package monopoly.java;
+package monopolyJava;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,7 +68,7 @@ public class MonopolyJava {
     }
     public static void playGame(List<Field> board, List<Player> players) {
         while (true) {
-            for (Player player in players) {
+            for (Player player : players) {
                 int diceroll = 3;
                 int newPosition = (player.getPosition() + diceroll) % board.size();
                 player.setPosition(newPosition);
