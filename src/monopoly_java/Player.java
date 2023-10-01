@@ -14,8 +14,8 @@ import java.util.List;
 public class Player {
     private int money;
     private String name;
-    protected List<Property> properties = new ArrayList<>();
-    protected PlayerStrategy strategy;
+    private List<Property> properties = new ArrayList<>();
+    private PlayerStrategy strategy;
     private int turn_count;
     private int position;
     private boolean alive;

@@ -6,37 +6,86 @@ skinparam CircledCharacterRadius 0
 title Monopoly Diagram
 
 class Player{
-    # name : String
-    # Money : int
-    # pay(player : Player, amount: int) : boolean
-    + receive(amount : int)
-    + checkAlive(): boolean
+    - money : int
+    - name : String
+    - properties : List<Property>
+    - strategy : PlayerStrategy
+    - turn_count : int
+    - position : int
+    - alive : boolean
+    + Player(name : String, strategy : PlayerStrategy)
+    + getProperites() : List<Property>
+    + getAlive() : boolean
+    + setPosition(position : int) : void
+    + getPosition() : int
+    + getName() : String
+    + pay(amount : int) : void
+    + forcedPay(amount : int) : void
+    + getMoney() : int
+    + canPay(amount : int) : boolean
+    + sellProperty(debt : int) : void
+    + buy(property : Property) : void
+    + action(field : Field) : void
+    + receive(amount : int) : void
 }
 
-class Bank {
-    # pay(player : Player, amount: int) : boolean
-}
 
 class Field{
-    # value : int
-    + effectValue() : int
-}
+    - value : int
+    + getValue() : int
+    + setValue(value : int) : void
+}   
 
 class Property {
-    - owned : boolean
-    - house : boolean
-    + effectValue() : int
-    + buy(player: Player)
-    + sell(player: Player)
-    + AddHouse()
+    - Owner : Player
+    - House : boolean
+    - housePrice : int = 4_000
+    + Property()
+    + getValue() : int
+    + totalCost() : int
+    + buyPrice() : int
+    + buyHouseP() : int
+    + isForSale() : boolean
+    + setOwner(player : Player) : void
+    + getOwner() : Player
+    + removeOwner() : void
+    + addHouse(player : Player) : void
+    + haveHouse() : boolean
 }
+
 
 class Service {
 }
 
 class LuckyField {
-    + effectValue() : int
 }
+
+interface PlayerStrategy {
+    + execute(player : Player, field : Field) : void
+}
+
+class GreedyStrategy {
+    + execute(player : Player, field : Field) : void
+}
+
+class CarefulStrategy {
+    + execute(player : Player, field : Field) : void
+    + strategyCondition(player : Player, amount : int) : boolean
+}
+
+class TacticalStrategy {
+    - turn : int
+    + execute(player : Player, field : Field) : void
+    + strategyCondition() : boolean
+}
+
+Player "1" <|-left- PlayerStrategy : strategy
+
+PlayerStrategy <|-- GreedyStrategy
+PlayerStrategy <|-- CarefulStrategy
+PlayerStrategy <|-- TacticalStrategy
+
+
 
 Player "*" o-down- "0..1" Property : properties
 Field <|-down- Property
