@@ -16,49 +16,49 @@ class PlayerLost <<exception>> {
 
 
 class Player{
-    - money : int
+    # money : int
     - name : String
-    - properties : List<Property>
-    - strategy : PlayerStrategy
-    - position : int
+    # properties : List<Property>
+    # strategy : PlayerStrategy
+    # position : int
     - alive : boolean
     + Player(name : String, strategy : PlayerStrategy)
     + getProperites() : List<Property>
     + getAlive() : boolean
-    + setPosition(position : int) : void
+    + setPosition(position : int)
     + getPosition() : int
     + getName() : String
-    + pay(amount : int) : void
-    + forcedPay(amount : int) : void
+    + pay(amount : int)
+    + forcedPay(amount : int)
     + getMoney() : int
     + canPay(amount : int) : boolean
-    + sellProperty(debt : int) : void
-    + buy(property : Property) : void
-    + action(field : Field) : void
-    + receive(amount : int) : void
+    + buy(property : Property)
+    + action(field : Field)
+    + receive(amount : int)
 }
 
 
 class Field{
-    - value : int
+    # value : int
     + getValue() : int
-    + setValue(value : int) : void
+    + setValue(value : int)
 }   
 
 class Property {
-    - Owner : Player
-    - House : boolean
-    - housePrice : int = 4_000
+    # Owner : Player
+    # House : boolean
+    $ Position : int
+    # housePrice : int = 4_000
     + Property()
     + getValue() : int
     + totalCost() : int
     + buyPrice() : int
     + buyHouseP() : int
     + isForSale() : boolean
-    + setOwner(player : Player) : void
+    + setOwner(player : Player)
     + getOwner() : Player
     + removeOwner() : void
-    + addHouse(player : Player) : void
+    + addHouse(player : Player)
     + haveHouse() : boolean
 }
 
@@ -70,21 +70,21 @@ class LuckyField {
 }
 
 interface PlayerStrategy {
-    + execute(player : Player, field : Field) : void
+    + execute(player : Player, field : Field)
 }
 
 class GreedyStrategy {
-    + execute(player : Player, field : Field) : void
+    + execute(player : Player, field : Field)
 }
 
 class CarefulStrategy {
-    + execute(player : Player, field : Field) : void
+    + execute(player : Player, field : Field)
     + strategyCondition(player : Player, amount : int) : boolean
 }
 
 class TacticalStrategy {
     - turn : int
-    + execute(player : Player, field : Field) : void
+    + execute(player : Player, field : Field)
     + strategyCondition() : boolean
 }
 

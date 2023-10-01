@@ -74,7 +74,7 @@ public class MonopolyJava {
             for (int i = 0; i < numFields; i++) {
                 String[] fieldInfo = scanner.nextLine().split(" ");
                 if (fieldInfo[0].equals("property")) {
-                    board.add(new Property());
+                    board.add(new Property(i));
                 } else if (fieldInfo[0].equals("lucky")) {
                     int amount = Integer.parseInt(fieldInfo[1]);
                     board.add(new LuckyField(amount));
@@ -139,6 +139,7 @@ public class MonopolyJava {
      */
     
     public static void playGame(List<Field> board, List<Player> players) {
+        int player_count = players.size();
         List<Player> playersToRemove = new ArrayList<>();
         while (players.size() > 1) {
             for (Player player : players) {
@@ -153,16 +154,24 @@ public class MonopolyJava {
                 player.action(currentField);
                 if (!player.getAlive()) {
                     playersToRemove.add(player);
+                    player_count -= 1;
                     System.out.println(ANSI_COLOR2 + player.getName() + " is out!" + ANSI_RESET);
+                    System.out.println("There are " + player_count + " left in the game."); // Original: (players.size() - 1)
+                    System.out.println(playersToRemove.size() + " are out of the game.");
+                }
+                
+                if (player_count == 1) { // Original (players.size() - playersToRemove.size() == 0)
+                    break;
                 }
             }
-            leaderBoard(players);
             players.removeAll(playersToRemove);
-            
-            
+            if (player_count != 1) {
+                leaderBoard(players);   
+            }
         }
         if (players.size() == 1) {
                 System.out.println(ANSI_COLOR + players.get(0).getName() + " Won!!!!"+ ANSI_RESET);
+                leaderBoard(players);
             }
         else  {
              
@@ -181,7 +190,12 @@ public class MonopolyJava {
         for (Player player : players) {
             System.out.println("Name: " + player.getName());
             System.out.println("Money: " + player.getMoney());
-            System.out.println("Properties: " + player.getProperites().size());
+            System.out.println("Properties count: " + player.getProperites().size());
+            int count = 0;
+            for (Property prop : player.getProperites()) {
+                count += 1;
+                System.out.println(count + ". " + (prop.getPosition()+1) );
+            }
         }
         System.out.println("----------------------------------------");
         System.out.println("----------------------------------------");

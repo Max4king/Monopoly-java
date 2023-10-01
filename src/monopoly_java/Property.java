@@ -13,13 +13,15 @@ package monopoly_java;
 public class Property extends Field {
     protected Player Owner;
     protected boolean House;
+    protected final int Position;
     protected int housePrice = 4_000;
     
     /**
      * Initializes a new instance of the Property class.
      */
-    public Property() {
+    public Property(int position) {
         this.setValue(1_000);
+        this.Position = position;
         House = false;
         
     }
@@ -31,6 +33,7 @@ public class Property extends Field {
     /**
      * @return The rental value of this property, which is higher if a house is built on it.
      */
+    public int getPosition() { return Position;}
     @Override
     public int getValue() {
         return (House) ? 2000 : 500;

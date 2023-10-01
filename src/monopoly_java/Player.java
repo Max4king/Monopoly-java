@@ -12,11 +12,11 @@ import java.util.List;
  * @author Ryan Supawarapong 
  */
 public class Player {
-    private int money;
+    protected int money;
     private String name;
-    private List<Property> properties = new ArrayList<>();
-    private PlayerStrategy strategy;
-    private int position;
+    protected List<Property> properties = new ArrayList<>();
+    protected PlayerStrategy strategy;
+    protected int position;
     private boolean alive;
     /**
      * Constructor for the Player class.
@@ -84,11 +84,14 @@ public class Player {
         System.out.println(name + " force to pay " + amount);
         if (!this.canPay(amount)) {
             System.out.println(name + " doesn't have enough money.");
-            this.sellProperty(amount);
-             if (!this.canPay(amount)) {
+//            this.sellProperty(amount);
+//             if (!this.canPay(amount)) {
                  alive = false;
+                 for (Property prop: this.properties) {
+                     prop.removeOwner();
+                 }
                  throw new PlayerLost(name);
-             }
+//             }
         }
         System.out.println(name + " payed " + amount);
         money -= amount;
@@ -114,7 +117,7 @@ public class Player {
     
     /**
      * Attempts to sell properties to cover a specified debt amount.
-     *
+     * Unused Function due to not reading properly.
      * @param debt The amount the player needs to cover.
      */
     public void sellProperty(int debt) {
@@ -125,11 +128,9 @@ public class Player {
                 return;
             }
             Property propertyToSell = properties.get(0);
-            if (propertyToSell.haveHouse()) {
-                
-            }
             int salePrice = propertyToSell.getValue();
             money += salePrice;
+            propertyToSell.removeOwner();
             properties.remove(0);
         }
     }

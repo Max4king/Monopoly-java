@@ -72,7 +72,7 @@ Bob
 Bill
 John
 
-diceroll.txt(Simulation of Diceroll for testing:
+diceroll.txt(Simulation of Diceroll for testing):
 3
 4
 5
