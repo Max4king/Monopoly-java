@@ -9,6 +9,7 @@ package monopoly_java;
  * @author work
  */
 public class GreedyStrategy implements PlayerStrategy {
+    
     public void execute(Player player, Field field) {
         try {
             if (field instanceof Property) {
@@ -24,9 +25,9 @@ public class GreedyStrategy implements PlayerStrategy {
                         System.out.println(e);
                     }
 
-                } else {
-                    player.forcedPay(prop.getValue());
-                    prop.getOwner().receive(prop.getValue());
+                } else if (prop.getOwner().getClass().getSimpleName().equals("Player")){
+                    player.forcedPay(prop.getRent());
+                    prop.getOwner().receive(prop.getRent());
                 }
             } 
         }

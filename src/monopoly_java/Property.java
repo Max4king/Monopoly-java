@@ -11,12 +11,16 @@ package monopoly_java;
 public class Property extends Field {
     protected Player Owner;
     protected boolean House;
+    protected int housePrice = 4_000;
     public Property() {
         this.setValue(1_000);
         House = false;
         
     }
-    public int getValue() {
+    @Override
+    public int getValue() { return (House) ? value + housePrice : value; }
+    
+    public int getRent() {
         return (House) ? 2000 : 500;
     }
     public boolean isForSale() {return Owner == null;} 
@@ -33,7 +37,7 @@ public class Property extends Field {
         if (House) {
             throw new AlreadyHoused();
         }
-        player.pay(4_000);
+        player.pay(housePrice);
         House = true;
     }
     public boolean haveHouse() {return House;}

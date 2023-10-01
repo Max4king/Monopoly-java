@@ -55,11 +55,14 @@ public class MonopolyJava {
             String strategyType = playerInfo[1].toLowerCase();
             PlayerStrategy strategy = null;
             if (strategyType.equals("greedy")) {
-                strategy = new GreedyStrategy(); }
-            } else if (strategyType.equals("tactical")) {
+                strategy = new GreedyStrategy(); 
+            } else if(strategyType.equals("tactical")) {
                 strategy = new TacticalStrategy();
-            } else if (strategyType.equals("careful")) {
+            } else if(strategyType.equals("careful")) {
                 strategy = new CarefulStrategy();
+            }
+            else {
+                throw new Exception("Strategy '"+ strategyType+ "' not found.");
             }
             players.add(new Player(name, strategy));
         }

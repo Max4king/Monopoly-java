@@ -74,7 +74,7 @@ public class Player {
     }
     public void buy(Property property) {
         try {
-            this.pay(property.getValue());  // Pay the bank
+            this.pay(property.getRent());  // Pay the bank
             property.setOwner(this);  // Update property owner
             this.properties.add(property);  // Add property to player's list
             System.out.println("Property Bought!");
