@@ -5,11 +5,25 @@
 package monopoly_java;
 
 /**
+ * The GreedyStrategy class implements the PlayerStrategy interface to define a specific behavior for players
+ * following a greedy strategy in the Monopoly game. In this strategy, players will always attempt to buy
+ * properties that can be bought and add houses to their owned properties whenever possible.
  *
- * @author work
+ * @author Ryan Supawarapong
  */
 public class GreedyStrategy implements PlayerStrategy {
     
+    /**
+     * Executes the greedy strategy for a given player on a given field.
+     * If the field is a property:
+     * - Buys the property if it's for sale.
+     * - Adds a house if the property is owned by the player and the player can afford it.
+     * - Pays the rent if the property is owned by another player.
+     * If the field is a ServiceField or a LuckyField, the player pays or receives the respective amount.
+     *
+     * @param player The player executing the strategy.
+     * @param field The field the player lands on.
+     */
     public void execute(Player player, Field field) {
         try {
             if (field instanceof Property) {

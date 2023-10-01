@@ -6,10 +6,15 @@ package monopoly_java;
  */
 
 /**
- *
+ * The NotEnoughMoney Exception class is used when there is not enough money in the player
+ * use this exception.
  * @author work
  */
 public class NotEnoughMoney extends Exception {
+    /**
+     * Constructs a new NotEnoughMoney exception with default message
+     * due to not having enough money.
+     */
     public NotEnoughMoney() {
         super("Not Enough Money");
     }

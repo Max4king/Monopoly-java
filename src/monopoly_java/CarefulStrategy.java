@@ -5,10 +5,22 @@
 package monopoly_java;
 
 /**
+ * The CarefulStrategy class implements the PlayerStrategy interface to provide a specific
+ * behavior for a player in the game. In this strategy, a player is cautious and ensures
+ * that they retain at least half of their money when making a purchase or building a house.
+ * This strategy also defines how a player interacts with different types of fields on the board.
  *
- * @author work
+ * @author Ryan Supawarapong
  */
+
 public class CarefulStrategy implements PlayerStrategy {
+    /**
+     * Executes the careful strategy for a given player on a given field. The player's actions
+     * depend on the type of field they land on and their current financial situation.
+     * 
+     * @param player The player who is executing this strategy.
+     * @param field The field on which the player has landed.
+     */
     public void execute(Player player, Field field) {
         try {
             if (field instanceof Property) {

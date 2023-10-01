@@ -5,14 +5,26 @@
 package monopoly_java;
 
 /**
+ * The TacticalStrategy class implements the PlayerStrategy interface to provide
+ * a specific behavior to a player. In this strategy, the player acts on certain
+ * turns based on whether the turn count is even.
  *
- * @author work
+ * @author Ryan Supawarapong
  */
 public class TacticalStrategy implements PlayerStrategy {
     int turn;
+    /**
+     * Initializes a new instance of the TacticalStrategy class with the turn count set to 0.
+     */
     public TacticalStrategy() {
         turn = 0;
     }
+    
+    /**
+     * Executes the tactical strategy for a player on a given field.
+     * @param player The player to execute the strategy for.
+     * @param field The field the player is currently on.
+     */
     public void execute(Player player, Field field) {
         try {
             if (field instanceof Property) {
@@ -49,6 +61,12 @@ public class TacticalStrategy implements PlayerStrategy {
         turn += 1;
             
     }
+    
+    /**
+     * Checks whether the strategy conditions are met for making a move.
+     * This is the factor to help determine the strategy.
+     * @return True if the current turn count is even; otherwise, false.
+     */
     public boolean strategyCondition() {
         return turn % 2 == 0;
     }

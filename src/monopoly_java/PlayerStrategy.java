@@ -5,9 +5,17 @@
 package monopoly_java;
 
 /**
- *
- * @author work
+ * The PlayerStrategy interface defines a single method for executing a strategy
+ * during a player's turn in the game.
+ * @author Ryan Supawarapong
+ * @version 1
  */
 public interface PlayerStrategy {
+    /**
+     *  Executes the player strategy base on the field they are on. It will be
+     * determine by implement class.
+     * @param player
+     * @param field 
+     */
     void execute(Player player, Field field);
 }
