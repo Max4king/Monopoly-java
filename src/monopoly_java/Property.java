@@ -17,6 +17,9 @@ public class Property extends Field {
         House = false;
         
     }
+    public static final String ANSI_RESET = "\u001B[0m";
+    
+    public static final String ANSI_COLOR = "\u001B[34m";
     
     @Override
     public int getValue() {
@@ -47,6 +50,8 @@ public class Property extends Field {
             throw new AlreadyHoused();
         }
         player.pay(housePrice);
+        System.out.println(ANSI_COLOR + "-----------"+ player.getName() + " Add a House."+"-----------" + ANSI_RESET);
+
         House = true;
     }
     public boolean haveHouse() {return House;}

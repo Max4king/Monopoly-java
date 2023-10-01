@@ -1,0 +1,9 @@
+5
+property
+property
+lucky 2000
+property
+property
+2
+Bob greedy
+Bill careful

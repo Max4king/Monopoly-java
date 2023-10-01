@@ -9,13 +9,16 @@ import java.io.FileNotFoundException;
 import java.lang.Math;
 /**
  *
- * @author work
+ * @author Ryan Supawarapong
+ * @version V1.1
  */
 public class MonopolyJava {
 
     /**
      * @param args the command line arguments
      */
+    
+    
     public static final String ANSI_RESET = "\u001B[0m";
     
     public static final String ANSI_COLOR = "\u001B[32m";
@@ -113,6 +116,7 @@ public class MonopolyJava {
                     System.out.println(ANSI_COLOR2 + player.getName() + " is out!" + ANSI_RESET);
                 }
             }
+            leaderBoard(players);
             players.removeAll(playersToRemove);
             
             
@@ -124,5 +128,18 @@ public class MonopolyJava {
              
             System.err.println("Something went wrong.");
         }
+    }
+    
+    public static void leaderBoard(List<Player> players) {
+        System.out.println("----------------------------------------");
+        System.out.println("-------------LeaderBoard----------------");
+        for (Player player : players) {
+            System.out.println("Name: " + player.getName());
+            System.out.println("Money: " + player.getMoney());
+            System.out.println("Properties: " + player.getProperites().size());
+        }
+        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------");
+        
     }
 }

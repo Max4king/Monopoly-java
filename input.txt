@@ -1,8 +1,24 @@
-4
+20
+property
+property
+service 10000
 property
 property
 lucky 2000
-service 1000
+property
+property
+service 15000
+property
+property
+lucky 3000
+property
+property
+service 20000
+property
+property
+lucky 4000
+property
+property
 3
 Bob greedy
 Bill careful

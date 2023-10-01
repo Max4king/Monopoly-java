@@ -22,7 +22,8 @@ Things to have:
 		* Greedy player: Buy everything possible when have enough money
 		* Careful player: Spend no more than half of the money each round
 		* Tactical player: Skip second buy chance
-### 2. Board
+### 2. MainBoard
+	Contains the collection of player and fields
 ### 3. field
 	* property
 	* service

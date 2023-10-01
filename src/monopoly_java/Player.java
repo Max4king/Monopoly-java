@@ -4,6 +4,7 @@
  */
 package monopoly_java;
 import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author work
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Player {
     private int money;
     private String name;
-    private ArrayList<Property> properties = new ArrayList<>();
+    protected List<Property> properties = new ArrayList<>();
     protected PlayerStrategy strategy;
     private int turn_count;
     private int position;
@@ -24,6 +25,7 @@ public class Player {
         this.position = 0;
         this.alive = true;
     }
+    public List<Property> getProperites() { return properties;}
     
     public boolean getAlive() {return alive;}
     
@@ -37,16 +39,20 @@ public class Player {
         if (!this.canPay(amount)) {
             throw new NotEnoughMoney();
         }
+        System.out.println(name + " payed " + amount);
         money -= amount;
     }
     public void forcedPay(int amount) throws PlayerLost {
+        System.out.println(name + " force to pay " + amount);
         if (!this.canPay(amount)) {
+            System.out.println(name + " doesn't have enough money.");
             this.sellProperty(amount);
              if (!this.canPay(amount)) {
                  alive = false;
                  throw new PlayerLost(name);
              }
         }
+        System.out.println(name + " payed " + amount);
         money -= amount;
     }
     public int getMoney() {return money; }
@@ -60,7 +66,9 @@ public class Player {
     
     public void sellProperty(int debt) {
         while (debt > money) {
+            System.out.println(name + " tries to sell property for money.");
             if (properties.isEmpty()) {
+                System.out.println(name + " has no property left.");
                 return;
             }
             Property propertyToSell = properties.get(0);
@@ -93,6 +101,7 @@ public class Player {
     }
     
     public void receive(int amount) {
+        System.out.println(name + " receives " + amount);
         money += amount;
     }
     
