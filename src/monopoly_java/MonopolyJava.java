@@ -24,6 +24,8 @@ public class MonopolyJava {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
     public static List<Field> createBoard(Scanner scanner) {
@@ -45,7 +47,7 @@ public class MonopolyJava {
         return board;
     }   
         
-    public static List<Player> createPlayers(Scanner scanner) {
+    public static List<Player> createPlayers(Scanner scanner) throws Exception {
         int numPlayers = scanner.nextInt();
         scanner.nextLine();  // Consume the newline
         List<Player> players = new ArrayList<>();
@@ -54,6 +56,7 @@ public class MonopolyJava {
             String name = playerInfo[0];
             String strategyType = playerInfo[1].toLowerCase();
             PlayerStrategy strategy = null;
+            try {
             if (strategyType.equals("greedy")) {
                 strategy = new GreedyStrategy(); 
             } else if(strategyType.equals("tactical")) {
@@ -62,16 +65,20 @@ public class MonopolyJava {
                 strategy = new CarefulStrategy();
             }
             else {
-                throw new Exception("Strategy '"+ strategyType+ "' not found.");
+                throw new Exception("Strategy '"+ strategyType+ "' not found for player " + name + ".");
             }
             players.add(new Player(name, strategy));
+            }
+            catch(Exception e) {
+                System.err.println("Error:" + e.getMessage());
+            }
         }
         return players;
 
     }
     public static void playGame(List<Field> board, List<Player> players) {
-        int round = 10;
-        while (round >= 0) {
+        List<Player> playersToRemove = new ArrayList<>();
+        while (players.size() > 1) {
             for (Player player : players) {
                 int diceroll = 1;
                 int newPosition = (player.getPosition() + diceroll) % board.size();
@@ -80,12 +87,17 @@ public class MonopolyJava {
                 System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + " at " + newPosition);  // Assume a getDescription method in Field class
                 player.action(currentField);
                 if (!player.getAlive()) {
-                    players.remove(player);
+                    playersToRemove.add(player);
                 }
             }
+            players.removeAll(playersToRemove);  
             
-            round--;
-            
+        }
+        if (players.size() == 1) {
+                System.out.println(players.get(0).getName() + " Won!!!!");
+            }
+        else 
+            System.err.println("Something went wrong.");
         }
     }
 }

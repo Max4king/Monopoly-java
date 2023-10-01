@@ -8,8 +8,8 @@ package monopoly_java;
  *
  * @author work
  */
-public class PlayerLost extends Exception {
-    public PlayerLost(String name) {
-        super("Player "+ name +" have losted");
+public class Service extends Field {
+    public Service(int price) {
+        this.setValue(price);
     }
 }
