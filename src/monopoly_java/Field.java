@@ -9,11 +9,11 @@ package monopoly_java;
  * @author work
  */
 public class Field {
-    private int value;
+    protected int value;
     public int getValue() {
         return value;
     }
-    protected  void setValue(int value) {
+    protected void setValue(int value) {
         this.value = value;
     } 
     
@@ -26,7 +26,7 @@ public class Field {
         }
     }
     // Responsible 
-    public void evaluate(Player player) throws Exception {
+    public void evaluate(Player player) throws NotEnoughMoney {
         player.pay(value);
     }
 }

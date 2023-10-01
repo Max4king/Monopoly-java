@@ -75,8 +75,12 @@ public class MonopolyJava {
                 player.setPosition(newPosition);
                 Field currentField = board.get(newPosition);
                 System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + "at " + newPosition);  // Assume a getDescription method in Field class
-                play.action();
+                player.action(currentField);
+                if (!player.getAlive()) {
+                    players.remove(player);
+                }
             }
+            
             round--;
             
         }

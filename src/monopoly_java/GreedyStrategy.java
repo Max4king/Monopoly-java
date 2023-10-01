@@ -10,8 +10,16 @@ package monopoly_java;
  */
 public class GreedyStrategy implements PlayerStrategy {
     public void execute(Player player, Field field) {
-        if (field instanceof Property && ((Property) field).isForSale()) {
-            player.buy((Property) field);
+        try {
+        if (field instanceof Property) {
+            Property prop = ((Property) field);
+            if(prop.isForSale()) {
+                player.buy((Property) field);
+            } else if (prop.getOwner() == player && !prop.House) {
+                prop.addHouse(player);
+            }
+        } catch ()
+            
     }
 }
 }

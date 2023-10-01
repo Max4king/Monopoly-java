@@ -66,11 +66,13 @@ parameter of the field). Stepping on a lucky field, the player gets some money (
 defined as a parameter of the field). 
 
 ### There are three different kind of strategies exist. 
-Initially, every player has 10000.
+Initially, every player has 10,000.
 
 Greedy player: If he steps on an unowned property, or his own property without a house, he
 starts buying it, if he has enough money for it.
+
 Careful player: he buys in a round only for at most half the amount of his money.
+
 Tactical player: he skips each second chance when he could buy.
 
 ### Condition
