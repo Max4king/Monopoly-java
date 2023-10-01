@@ -43,6 +43,7 @@ public class Player {
         if (!this.canPay(amount)) {
             this.sellProperty(amount);
              if (!this.canPay(amount)) {
+                 alive = false;
                  throw new PlayerLost(name);
              }
         }
@@ -72,15 +73,6 @@ public class Player {
         }
     }
     public void buy(Property property) {
-        if (!property.isForSale()) {
-            try {
-                this.forcedPay(property.getValue()); // Pay the owner
-                property.getOwner().receive(property.getValue()); // Owner receives money
-            } catch (Exception e) {
-                System.out.println("Not enough money to pay the owner.");
-            }
-            return;
-        }
         try {
             this.pay(property.getValue());  // Pay the bank
             property.setOwner(this);  // Update property owner

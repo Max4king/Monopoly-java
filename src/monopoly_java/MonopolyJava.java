@@ -52,15 +52,15 @@ public class MonopolyJava {
         for (int i = 0; i < numPlayers; i++) {
             String[] playerInfo = scanner.nextLine().split(" ");
             String name = playerInfo[0];
-            String strategyType = playerInfo[1];
+            String strategyType = playerInfo[1].toLowerCase();
             PlayerStrategy strategy = null;
             if (strategyType.equals("greedy")) {
                 strategy = new GreedyStrategy(); }
-//            } else if (strategyType.equals("tactical")) {
-//                strategy = new TacticalStrategy();
-//            } else if (strategyType.equals("careful")) {
-//                strategy = new CarefulStrategy();
-//            }
+            } else if (strategyType.equals("tactical")) {
+                strategy = new TacticalStrategy();
+            } else if (strategyType.equals("careful")) {
+                strategy = new CarefulStrategy();
+            }
             players.add(new Player(name, strategy));
         }
         return players;
@@ -74,7 +74,7 @@ public class MonopolyJava {
                 int newPosition = (player.getPosition() + diceroll) % board.size();
                 player.setPosition(newPosition);
                 Field currentField = board.get(newPosition);
-                System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + "at " + newPosition);  // Assume a getDescription method in Field class
+                System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + " at " + newPosition);  // Assume a getDescription method in Field class
                 player.action(currentField);
                 if (!player.getAlive()) {
                     players.remove(player);
