@@ -8,25 +8,41 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.Math;
 /**
+ * 
+ *  The MonopolyJava class encapsulates the main logic and flow of a simplified Monopoly game.
+ *  It contains methods to set up the game board, create players, play the game, and display a leaderboard.
  *
  * @author Ryan Supawarapong
- * @version V1.1
+ * @version V1.1 
  */
 public class MonopolyJava {
 
     /**
-     * @param args the command line arguments
+     * ANSI escape code for resetting color.
      */
-    
-    
     public static final String ANSI_RESET = "\u001B[0m";
     
+    /**
+     * ANSI escape code for green color.
+     */
     public static final String ANSI_COLOR = "\u001B[32m";
     
+    /**
+     * ANSI escape code for yellow color.
+     */
     public static final String ANSI_COLOR2 = "\u001B[33m";
     
+    /**
+     * ANSI escape code for cyan color.
+     */
     public static final String ANSI_COLOR3 = "\u001B[36m";
     
+    /**
+     * The main method for the MonopolyJava class.
+     * It initializes the game board and players, then starts the game.
+     *
+     * @param args the command-line arguments (not used)
+     */
     public static void main(String[] args) {
         try {
             Scanner scanner = new Scanner(new File("input.txt"));
@@ -40,6 +56,16 @@ public class MonopolyJava {
             System.err.println(e);
         }
     }
+    
+    /**
+     * The createBoard method for the MonopolyJava class.
+     * It initializes the game board of the game.
+     *
+     * @param scanner the Scanner takes input data
+     * @returns a List of Fields to be the game board
+     * @throws Exception if an invalid field type is encountered
+     */
+    
     public static List<Field> createBoard(Scanner scanner) throws Exception {
         int numFields = scanner.nextInt();
         scanner.nextLine();  // Consume the newline
@@ -66,7 +92,15 @@ public class MonopolyJava {
         }
         return board;
     }   
-        
+    
+    /**
+     * Creates a list of players based on input from a Scanner.
+     *
+     * @param scanner the Scanner takes input data
+     * @return a List of Player objects representing the players
+     * @throws Exception if an invalid strategy type is encountered
+     */
+    
     public static List<Player> createPlayers(Scanner scanner) throws Exception {
         int numPlayers = scanner.nextInt();
         scanner.nextLine();  // Consume the newline
@@ -96,7 +130,13 @@ public class MonopolyJava {
         return players;
     
     }
-
+    
+    /**
+     *  This is the Main game loop, where to player takes turn rolling the dice 
+     *  and interact with field they land on til only one lives.
+     * @param board the game board
+     * @param players  the collection of player
+     */
     
     public static void playGame(List<Field> board, List<Player> players) {
         List<Player> playersToRemove = new ArrayList<>();
@@ -129,6 +169,11 @@ public class MonopolyJava {
             System.err.println("Something went wrong.");
         }
     }
+    /**
+     *  An quality of life to see player current status.
+     * 
+     * @param players the list of active player
+     */
     
     public static void leaderBoard(List<Player> players) {
         System.out.println("----------------------------------------");
