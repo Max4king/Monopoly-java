@@ -27,7 +27,6 @@ public class Player {
     public Player(String name, PlayerStrategy strategy) {
         this.name = name;
         this.money = 10_000;
-        this.turn_count = 0;
         this.strategy = strategy; 
         this.position = 0;
         this.alive = true;
