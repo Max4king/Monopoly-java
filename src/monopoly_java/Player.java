@@ -16,7 +16,6 @@ public class Player {
     private String name;
     private List<Property> properties = new ArrayList<>();
     private PlayerStrategy strategy;
-    private int turn_count;
     private int position;
     private boolean alive;
     /**

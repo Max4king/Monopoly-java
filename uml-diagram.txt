@@ -5,12 +5,21 @@ skinparam CircledCharacterFontSize 0
 skinparam CircledCharacterRadius 0
 title Monopoly Diagram
 
+class NotEnoughMoney <<exception>> {
+}
+
+class AlreadyHoused <<exception>> {
+}
+
+class PlayerLost <<exception>> {
+}
+
+
 class Player{
     - money : int
     - name : String
     - properties : List<Property>
     - strategy : PlayerStrategy
-    - turn_count : int
     - position : int
     - alive : boolean
     + Player(name : String, strategy : PlayerStrategy)
@@ -85,7 +94,10 @@ PlayerStrategy <|-- GreedyStrategy
 PlayerStrategy <|-- CarefulStrategy
 PlayerStrategy <|-- TacticalStrategy
 
-
+Property ..> NotEnoughMoney : throws
+Property ..> AlreadyHoused : throws
+Player ..> NotEnoughMoney : throws
+Player ..> PlayerLost : throws
 
 Player "*" o-down- "0..1" Property : properties
 Field <|-down- Property
