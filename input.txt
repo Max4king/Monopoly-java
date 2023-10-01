@@ -1,7 +1,7 @@
 4
 property
 property
-lucky field 2000
+lucky 2000
 service 1000
 3
 Bob greedy

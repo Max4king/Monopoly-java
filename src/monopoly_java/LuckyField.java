@@ -8,8 +8,8 @@ package monopoly_java;
  *
  * @author work
  */
-public class Service extends Field {
-    public Service(int price) {
-        this.setValue(price);
+public class LuckyField extends Field {
+    public LuckyField(int value) {
+        this.setValue(value);
     }
 }

@@ -17,15 +17,24 @@ public class Property extends Field {
         House = false;
         
     }
-    @Override
-    public int getValue() { return (House) ? value + housePrice : value; }
     
-    public int getRent() {
+    @Override
+    public int getValue() {
         return (House) ? 2000 : 500;
     }
+    
+    public int totalCost() { return (House) ? value + housePrice : value; }
+    
+    public int buyPrice() { return value;}
+    
+    public int buyHouseP() { return housePrice;}
+    
     public boolean isForSale() {return Owner == null;} 
     
-    public void setOwner(Player player) {
+    public void setOwner(Player player) throws PropertyAlreadyOwned {
+        if (Owner != null) {
+            throw new PropertyAlreadyOwned();
+        }
         Owner = player;
     }
     public Player getOwner() {return Owner;}

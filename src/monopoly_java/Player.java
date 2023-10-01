@@ -74,16 +74,21 @@ public class Player {
     }
     public void buy(Property property) {
         try {
-            this.pay(property.getRent());  // Pay the bank
+            System.out.println(name + " tries to buy " + property.getClass().getSimpleName());
+            this.pay(property.buyPrice());  // Pay the ~~bank~~ game.
             property.setOwner(this);  // Update property owner
             this.properties.add(property);  // Add property to player's list
             System.out.println("Property Bought!");
         } catch(NotEnoughMoney e) {
             System.out.println("Not Enough Money!");
+        } catch(PropertyAlreadyOwned e) {
+            System.err.println(name + " tried to buy already own property.");
+            this.receive(property.buyPrice());
         }
     }
     
     public void action(Field field) {
+        System.out.println(name + " turns to act.");
         strategy.execute(this, field);
     }
     

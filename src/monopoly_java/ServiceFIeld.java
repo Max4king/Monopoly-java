@@ -8,12 +8,8 @@ package monopoly_java;
  *
  * @author work
  */
-public class Field {
-    protected int value;
-    public int getValue() {
-        return value;
-    }
-    protected void setValue(int value) {
-        this.value = value;
+public class ServiceField extends Field {
+    public ServiceField(int price) {
+        this.setValue(price);
     }
 }
