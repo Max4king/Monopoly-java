@@ -48,8 +48,21 @@ public class MonopolyJava {
             Scanner scanner = new Scanner(new File("input.txt"));
             List<Field> board = createBoard(scanner);
             List<Player> players = createPlayers(scanner);
-            playGame(board, players);
-            scanner.close();
+
+            Scanner diceRollScanner = null;
+            try {
+                diceRollScanner = new Scanner(new File("diceroll.txt"));
+                System.out.println("Diceroll Test found!!!");
+                playGameTest(board, players, diceRollScanner);
+            } catch (FileNotFoundException e) {
+                System.err.println("dice_rolls.txt file not found. Running the program with random number.");
+                if (diceRollScanner != null) {
+                    diceRollScanner.close();
+                }
+                playGame(board, players);
+                scanner.close();
+            }
+            
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (Exception e) {
@@ -103,7 +116,7 @@ public class MonopolyJava {
     
     public static List<Player> createPlayers(Scanner scanner) throws Exception {
         int numPlayers = scanner.nextInt();
-        scanner.nextLine();  // Consume the newline
+        scanner.nextLine();
         List<Player> players = new ArrayList<>();
         for (int i = 0; i < numPlayers; i++) {
             String[] playerInfo = scanner.nextLine().split(" ");
@@ -165,6 +178,7 @@ public class MonopolyJava {
                 }
             }
             players.removeAll(playersToRemove);
+            // Comment the if below for less message
             if (player_count != 1) {
                 leaderBoard(players);   
             }
@@ -201,4 +215,46 @@ public class MonopolyJava {
         System.out.println("----------------------------------------");
         
     }
+    public static void playGameTest(List<Field> board, List<Player> players, Scanner diceRollScanner) {
+    int player_count = players.size();
+    List<Player> playersToRemove = new ArrayList<>();
+    while (players.size() > 1) {
+        for (Player player : players) {
+            int diceroll = 0;
+            if (diceRollScanner.hasNextInt()) {
+                diceroll = diceRollScanner.nextInt();
+            } else {
+                System.err.println("Ran out of predetermined dice rolls.");
+                return;
+            }
+            int newPosition = (player.getPosition() + diceroll) % board.size();
+            player.setPosition(newPosition);
+            Field currentField = board.get(newPosition);
+            System.out.println(ANSI_COLOR3 + player.getName() + " rolls a " + diceroll + ANSI_RESET);
+            System.out.println(player.getName() + " lands on " + currentField.getClass().getSimpleName() + " at " + (newPosition+1));
+            player.action(currentField);
+            if (!player.getAlive()) {
+                playersToRemove.add(player);
+                player_count -= 1;
+                System.out.println(ANSI_COLOR2 + player.getName() + " is out!" + ANSI_RESET);
+                System.out.println("There are " + player_count + " left in the game.");
+                System.out.println(playersToRemove.size() + " are out of the game.");
+            }
+            if (player_count == 1) {
+                break;
+            }
+        }
+        players.removeAll(playersToRemove);
+//        if (player_count != 1) {
+//            leaderBoard(players);
+//        }
+    }
+    if (players.size() == 1) {
+        System.out.println(ANSI_COLOR + players.get(0).getName() + " Won!!!!" + ANSI_RESET);
+        leaderBoard(players);
+    } else {
+        System.err.println("Something went wrong.");
+    }
+}
+
 }

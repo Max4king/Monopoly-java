@@ -61,6 +61,12 @@ public class Player {
     public String getName() { return name;}
     
     /**
+     * 
+     * @return the player's Strategy
+     */
+    public PlayerStrategy getStrategy() {return strategy;}
+    
+    /**
      * Deducts a specified amount of money from the player's total.
      *
      * @param amount The amount to be paid.
@@ -99,8 +105,15 @@ public class Player {
     /**
      * @return The amount of money the player has.
      */
-    
     public int getMoney() {return money; }
+    /**
+     *  This is an God mode command for setting money
+     *  It should only be used in testing and make 
+     *  private in final product. It should only be access via
+     *  God mode inferface.
+     * @param amount  of money to set
+     */
+    public void setMoney(int amount) { money = amount;}
     
     /**
      * Checks if the player has enough money to cover a specified amount.
