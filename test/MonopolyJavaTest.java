@@ -16,7 +16,6 @@ public class MonopolyJavaTest {
 
     @Before
     public void setUp() {
-        // Initialization code, if needed
     }
 
     @Test
@@ -50,14 +49,17 @@ public class MonopolyJavaTest {
         List<Field> board = new ArrayList<>();
         board.add(new Property(0));
         board.add(new LuckyField(2000));
+        board.add(new Property(0));
         board.add(new ServiceField(10000));
+        board.add(new Property(0));
 
         List<Player> players = new ArrayList<>();
         players.add(new Player("Alice", new GreedyStrategy()));
         players.add(new Player("Bob", new CarefulStrategy()));
-
+        
+        Scanner diceRollScanner = new Scanner("1 2 2 10 12 6 4 5");
         // Call your playGame method
-        MonopolyJava.playGame(board, players);
+        MonopolyJava.playGameTest(board, players, diceRollScanner);
 
         // Perform assertions
         assertEquals(1, players.size());
@@ -77,7 +79,7 @@ public class MonopolyJavaTest {
         try {
         prop.setOwner(alice); // Alice owns the property
         } catch (PropertyAlreadyOwned e) {
-            // Handle exception (in this case, you might not expect an exception here)
+            // Should not happened cause the property is unowned
             fail("Unexpected exception: " + e.getMessage());
         }
         assertThrows(PropertyAlreadyOwned.class, () -> {
@@ -89,24 +91,61 @@ public class MonopolyJavaTest {
     
     @Test
     public void testPlayerLosesAfterNoMoney() {
-        // Mock your board and players
         List<Field> board = new ArrayList<>();
         board.add(new Property(0));
-        board.add(new ServiceField(10000)); // Expensive service field
+        board.add(new ServiceField(20000));
 
         List<Player> players = new ArrayList<>();
         Player alice = new Player("Alice", new GreedyStrategy());
         Player bob = new Player("Bob", new CarefulStrategy());
-        alice.setMoney(5000); // Not enough money to pay for the service
+        alice.setMoney(5000);
         players.add(alice);
         players.add(bob);
 
-        // Call playGame with a dice roll that lands Alice on the service field
         Scanner diceRollScanner = new Scanner("1 2 2");
         MonopolyJava.playGameTest(board, players, diceRollScanner);
 
-        // Perform assertions
         assertEquals(1, players.size()); // Alice should be removed from the game
+    }
+    
+    @Test
+    public void testInvalidFieldInput() {
+        String input = "3\ninvalidField\nlucky 2000\nservice 10000\n";
+        Scanner scanner = new Scanner(new StringReader(input));
+        assertThrows(Exception.class, () -> MonopolyJava.createBoard(scanner));
+    }
+
+    @Test
+    public void testInvalidStrategyInput() {
+        String input = "2\nAlice invalidStrategy\nBob careful\n";
+        Scanner scanner = new Scanner(new StringReader(input));
+        assertThrows(Exception.class, () -> MonopolyJava.createPlayers(scanner));
+    }
+    
+    
+
+    @Test
+    public void testAddHouseException() {
+        Property prop = new Property(0);
+        Player alice = new Player("Alice", new GreedyStrategy());
+        alice.setMoney(500); // Not enough money to add a house
+
+        assertThrows(NotEnoughMoney.class, () -> prop.addHouse(alice));
+    }
+    
+    @Test
+    public void alreadyHousedException() {
+        Property prop = new Property(0);
+        Player alice = new Player("Alice", new GreedyStrategy());
+        alice.setMoney(10000); // Not enough money to add a house
+        try {
+            prop.setOwner(alice); // Alice owns the property
+            prop.addHouse(alice);
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertThrows(AlreadyHoused.class, () -> prop.addHouse(alice));
     }
 
 }

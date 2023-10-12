@@ -138,6 +138,7 @@ public class MonopolyJava {
             }
             catch(Exception e) {
                 System.err.println("Error:" + e.getMessage());
+                throw new Exception("Error for test");
             }
         }
         return players;
